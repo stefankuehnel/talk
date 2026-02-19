@@ -49,7 +49,7 @@ talk send \
 ```
 
 > [!NOTE]
-> For convenience, the flags `--server-url`, `--chat-id`, `--username`, and `--password` can also be provided via
+> The flags `--server-url`, `--chat-id`, `--username`, and `--password` can also be provided via
 the environment variables `TALK_SERVER_URL`, `TALK_CHAT_ID`, `TALK_USERNAME`, and `TALK_PASSWORD`.
 
 ## Development
