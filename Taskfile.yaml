@@ -1,0 +1,62 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    desc: "Run default tasks (lint, build and test)"
+    cmds:
+      - task: lint
+      - task: build
+      - task: test
+      - defer: { task: clean}
+
+  build:
+    desc: "Run Go and Nix build"
+    cmds:
+      - task: build:go
+      - task: build:nix
+
+  build:go:
+    desc: "Run Go build"
+    cmds:
+      - cmd: go build -o talk .
+  
+  build:nix:
+    desc: "Run Nix build"
+    cmds:
+      - nix build --no-link .#talk
+
+  test:
+    desc: "Run Go tests"
+    cmds:
+      - task: test:go
+      - task: test:go:coverage
+
+  test:go:
+    desc: "Run Go tests"
+    cmds:
+      - go test ./...
+
+  test:go:coverage:
+    desc: "Run Go tests with coverage"
+    cmds:
+      - go test -v -coverprofile=coverage.out -covermode=atomic ./...
+      - go tool cover -func=coverage.out
+
+  fmt:
+    desc: "Format Go code"
+    cmds:
+      - go fmt ./...
+
+  lint:
+    desc: "Lint Go code"
+    cmds:
+      - golangci-lint run ./...
+      - go vet ./...
+
+  clean:
+    desc: "Clean build artifacts"
+    cmds:
+      - rm -f talk
+      - go clean
