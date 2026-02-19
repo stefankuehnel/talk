@@ -23,7 +23,7 @@ nix profile install github:stefankuehnel/talk#talk
 ### Using Go
 
 ```bash
-go install github.com/stefankuehnel/talk@latest
+go install stefanco.de/talk@latest
 ```
 
 ### Building from Source
